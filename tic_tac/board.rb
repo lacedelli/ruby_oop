@@ -68,18 +68,18 @@ class Board
 		end
 	end
 	# Parse the text that the player might input
-	def read_text(row, column)
+	def understands?(row, column)
 		# Turn strings into symbols
-		row = row.dowcase.to_sym
+		row = row.downcase.to_sym
 		column = column.downcase.to_sym
 		read = Array.new
 		# Check the cases for rows
 		case row
 		when :top
 			read[0] = true
-		when :middle || :mid
+		when :middle 
 			read[0] = true
-		when :bottom || :bot
+		when :bottom
 			read[0] = true
 		else
 			read[0] = false
