@@ -16,9 +16,9 @@ class Board
 	# Set a value to the selected cel	
 	def set_value(row, column, value)
 		# Check if the cell is empty, return boolean for loop purposes
-		cel = self.row[column.to_sym]
+		cel = self.instance_variable_get("@#{row}")[column.to_sym]
 		if cel == " "
-			cel = value
+			self.instance_variable_get("@#{row}")[column.to_sym] = value
 			return true
 		else
 			puts "The selected cell already has the character #{cel} on it."
