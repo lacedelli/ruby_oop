@@ -1,6 +1,7 @@
 require_relative 'board.rb'
 
 class Game
+	attr_reader :player_turn, :p1_rounds, :p2_rounds, :board
 
 	def initialize()
 		# set up the round counter for each player
@@ -32,6 +33,10 @@ class Game
 				 "Please write them with a space between words, like so: 'top right'."
 		move = gets.split()
 		# Check for typos in the answer
+		# TODO find a way to encapsulate this code in such a way that whenever
+		# the code is rejected, the input has to be filtered all the way through
+		# from the beginning, so that the direction is properly parsed
+		# and the user gets the correct message on each step.
 		while @board.understands?(move[0], move[1]).include?(false)
 			puts "I'm sorry, I could not understand the move,\n"\
 					 "Could you please write it again for me?"
@@ -62,10 +67,13 @@ class Game
 			#check for win condition
 			if self.board.line_complete?(char)
 				if char == "X"
+					puts "Player 1 won!"
 					self.p1_rounds += 1
 				else
+					puts "Player 2 won!"
 					self.p2_rounds += 1
 				end
+				puts self.to_s()
 				player_won = true
 			end
 			#TODO check for stalemate
@@ -73,14 +81,18 @@ class Game
 		#ask if players want another go
 		puts "Do you want to play another round? Y/N"
 		if gets.chomp.downcase == "y" || gets.chomp.downcase == "yes"
+			# TODO maybe calling itself would work better? 
+			# I'm honestly thinking in game engine terms, where I'm assuming
+			# that the loop is gonna pick up where I left off.
 			player_won = false
 		else
 			puts "Thank you for playing! The final scores were:\n"\
 					 "Player 1: #{p1_rounds}, Player 2: #{p2_rounds}."
 		end
 	end	
-	protected
-	attr_accessor :player_turn, :p1_rounds, :p2_rounds, :board
+	 
+	private
+	attr_writer :player_turn, :p1_rounds, :p2_rounds, :board
 end
 
 game = Game.new
