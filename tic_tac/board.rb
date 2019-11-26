@@ -14,20 +14,88 @@ class Board
 	end
 
 	# Set a value to the selected cel	
-	def set_value
-		#TODO check if selected cel is valid
-		#TODO access cel with new value
-		#TODO return true
-		#TODO if cel is not valid
-		#TODO print message telling the user so
-		#TODO return false
+	def set_value(row, column, value)
+		# Check if the cell is empty, return boolean for loop purposes
+		cel = self.row[column.to_sym]
+		if cel == " "
+			cel = value
+			return true
+		else
+			puts "The selected cell already has the character #{cel} on it."
+			return false
+		end
 	end
 	# Check if any of the lines is complete
 	def line_complete?(char)
-		#TODO	define a character to check
-		#TODO Check each row
-		#TODO Check each column
-		#TODO Chect diagonal rows
+		char = char
+		#Check each row
+		if self.top[:left] == char && 
+			 self.top[:center] == char && 
+			 self.top[:right] == char
+			return true
+		elsif self.middle[:left] == char &&
+					self.middle[:center] == char &&
+					self.middle[:right] == char
+			return true
+		elsif self.bottom[:left] == char &&
+					self.bottom[:center] == char &&
+					self.bottom[:right] == char
+			return true
+		#Check each column
+		elsif self.top[:left] == char &&
+					self.middle[:left] == char &&
+					self.bottom[:left] == char
+			return true
+		elsif self.top[:center] == char &&
+					self.middle[:center] == char &&
+					self.bottom[:center] == char
+			return true
+		elsif self.top[:right] == char &&
+					self.middle[:right] == char &&
+					self.bottom[:right] == char
+			return true
+		#Chect diagonal rows
+		elsif self.top[:left] == char &&
+					self.middle[:center] == char &&
+					self.bottom[:right] == char
+			return true
+		elsif self.top[:right] == char &&
+					self.middle[:center] == char &&
+					self.bottom[:left] == char
+			return true
+		else
+			return false
+		end
+	end
+	# Parse the text that the player might input
+	def read_text(row, column)
+		# Turn strings into symbols
+		row = row.dowcase.to_sym
+		column = column.downcase.to_sym
+		read = Array.new
+		# Check the cases for rows
+		case row
+		when :top
+			read[0] = true
+		when :middle || :mid
+			read[0] = true
+		when :bottom || :bot
+			read[0] = true
+		else
+			read[0] = false
+		end
+		# Check cases for columns
+		case column
+		when :left
+			read[1] = true
+		when :center
+			read[1] = true
+		when :right
+			read[1] = true
+		else
+			read[1] = false
+		end
+		read
 	end
 	# Override to_s to make it easier to print
 	def to_s() 

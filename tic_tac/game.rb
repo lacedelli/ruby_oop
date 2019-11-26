@@ -25,7 +25,7 @@ class Game
 		# TODO Make the move
 		# TODO add to player counter, changing turn
 	end
-	def play_game()
+	def self.play_game()
 		#TODO print a message welcoming players
 		#TODO start a loop 
 		#TODO play a round
