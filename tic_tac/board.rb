@@ -14,16 +14,18 @@ class Board
 	end
 
 	# Set a value to the selected cel	
-	def set_value(row, column, value)
+	def valid_move?(row, column)
 		# Check if the cell is empty, return boolean for loop purposes
 		cel = self.instance_variable_get("@#{row}")[column.to_sym]
 		if cel == " "
-			self.instance_variable_get("@#{row}")[column.to_sym] = value
 			return true
 		else
 			puts "The selected cell already has the character #{cel} on it."
 			return false
 		end
+	end
+	def set_value(row, column, char)
+		self.instance_variable_get("@#{row}")[column.to_sym] = char
 	end
 	# Check if any of the lines is complete
 	def line_complete?(char)
