@@ -27,20 +27,21 @@ class Game
 				 "'top', 'middle' and 'bottom' for the rows, and\n"\
 				 "'left', 'center', and 'right' for the columns.\n"\
 				 "Please write them with a space between words, like so: 'top right'.\n"
-		move = gets.split()
-		# Check for typos in the answer
-		# TODO call a board method that only exits if the move is valid
-		# TODO call the board method to set the move
+		# Get the move from the board class.
+		move = board.get_move()
+		# call the board method to set the move
+		board.set_value(move[0], move[1], char)
 	end
 
 	# Play a single match of the game
 	def play_match()
-		char = get_player()
 		#start a loop 
-		player_won = false
-		while not player_won
+		game_end = false
+		while not game_end
+			char = get_player()
 			#play a round
 			self.play_round(char)
+			self.player_turn += 1
 			#check for win condition
 			if self.board.line_complete?(char)
 				if char == "X"
@@ -51,12 +52,13 @@ class Game
 					self.p2_rounds += 1
 				end
 				puts self.to_s()
-				player_won = true
+				game_end = true
+				break
 			end
-			#TODO check for stalemate
-			#TODO after the round is done, add one to the turn switch
+			# check for stalemate
+			game_end = true if board.stalemate?()
 		end	
-			end	
+	end	
 	 
 	def play_game()
 		#print a message welcoming players
@@ -69,7 +71,10 @@ class Game
 			puts "Do you want to play another round? Y/N"
 			if gets.chomp.downcase == "y" || gets.chomp.downcase == "yes"
 				# Create a new board for the new game
-				# TODO Write the ongoing score
+				# Write the ongoing score
+				puts "The ongoing score is: Player 1: #{p1_rounds},"\
+				    	"Player 2: #{p2_rounds}."
+
 				self.board = Board.new()
 				play_match()
 			else
