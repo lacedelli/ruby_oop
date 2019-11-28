@@ -24,9 +24,11 @@ class Board
 			return false
 		end
 	end
+
 	def set_value(row, column, char)
 		self.instance_variable_get("@#{row}")[column.to_sym] = char
 	end
+
 	# Check if any of the lines is complete
 	def line_complete?(char)
 		char = char
@@ -69,6 +71,7 @@ class Board
 			return false
 		end
 	end
+
 	# Parse the text that the player might input
 	def understands?(row, column)
 		# Turn strings into symbols
@@ -99,6 +102,7 @@ class Board
 		end
 		read
 	end
+
 	# Override to_s to make it easier to print
 	def to_s() 
 		"|#{@top[:left]}|#{@top[:center]}|#{@top[:right]}|\n"\
@@ -108,6 +112,26 @@ class Board
 		"|#{@bottom[:left]}|#{@bottom[:center]}|#{@bottom[:right]}|\n"
 	end
 	
+	# TODO Method that loops on itself, and asks the player a move,
+	# TODO will only exit the method once the output is valid.
+	def get_move()
+		# TODO set up an array of booleans
+		# TODO start a loop that can only be broken out of
+		# TODO ask for input
+		# TODO if [false, false], tell player the system cannot parse text, restart
+		# TODO if [true, false], tell the player it's an invalid move, restart loop
+		# TODO if [true, true] break out of the loop
+		# TODO return move
+	end
+
+	#TODO Method that checks for stalemate
+	def stalemate?
+		#TODO make an array of booleans for each row
+		#TODO ternary operator for each row that checks if it contains a " "
+		#TODO sets a value of array to false for each cleared row
+		#TODO if all values are false, return true
+		#TODO else, return false
+	end
 
 	private
 	# Set up the writers as private methods

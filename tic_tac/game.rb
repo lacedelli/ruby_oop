@@ -20,7 +20,7 @@ class Game
 	# Method that plays a round of the game
 	def play_round(char)
 		char = char
-		puts "It's #{char}'s turn!"
+		# TODO Call char_to_player to write a properly formatted line
 		# Ask the player for a move
 		puts self.to_s()
 		puts "Please write your move, the options are:\n"\
@@ -29,23 +29,8 @@ class Game
 				 "Please write them with a space between words, like so: 'top right'.\n"
 		move = gets.split()
 		# Check for typos in the answer
-		# TODO find a way to encapsulate this code in such a way that whenever
-		# the code is rejected, the input has to be filtered all the way through
-		# from the beginning, so that the direction is properly parsed
-		# and the user gets the correct message on each step.
-		while @board.understands?(move[0], move[1]).include?(false)
-			puts "I'm sorry, I could not understand the move,\n"\
-					 "Could you please write it again for me?\n"
-			move = gets.split()
-		end
-		# Check if the move is valid by confirming it is an empty space
-		while not self.board.valid_move?(move[0], move[1])
-			move = gets.split()
-		end
-		# Make the move
-		self.board.set_value(move[0], move[1], char)
-		# add to player counter, changing turn
-		self.player_turn += 1
+		# TODO call a board method that only exits if the move is valid
+		# TODO call the board method to set the move
 	end
 
 	# Play a single match of the game
@@ -62,7 +47,6 @@ class Game
 					puts "Player 1 won!"
 					self.p1_rounds += 1
 				else
-					# TODO find out why the game doesn't end here
 					puts "Player 2 won!"
 					self.p2_rounds += 1
 				end
@@ -70,6 +54,7 @@ class Game
 				player_won = true
 			end
 			#TODO check for stalemate
+			#TODO after the round is done, add one to the turn switch
 		end	
 			end	
 	 
@@ -84,6 +69,7 @@ class Game
 			puts "Do you want to play another round? Y/N"
 			if gets.chomp.downcase == "y" || gets.chomp.downcase == "yes"
 				# Create a new board for the new game
+				# TODO Write the ongoing score
 				self.board = Board.new()
 				play_match()
 			else
@@ -106,8 +92,12 @@ class Game
 		end
 	end
 
-	def get_move()
-
+	def char_to_player(char)
+		if char == "X"
+			return "Player 1"
+		elsif char == "O"
+			return "Player 2"
+		end
 	end
 
 end
