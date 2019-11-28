@@ -126,7 +126,7 @@ class Board
 
 	#TODO Method that checks for stalemate
 	def stalemate?
-		#TODO make an array of booleans for each row
+		#TODO make an array of booleans with three values
 		#TODO ternary operator for each row that checks if it contains a " "
 		#TODO sets a value of array to false for each cleared row
 		#TODO if all values are false, return true
