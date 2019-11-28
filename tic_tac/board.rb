@@ -19,6 +19,8 @@ class Board
 		cel = self.instance_variable_get("@#{row}")[column.to_sym]
 		if cel == " "
 			return true
+		elsif cel == nil
+			puts "Couldn't find a cel there, make sure you're not writing two rows' names"
 		else
 			puts "The selected cell already has the character #{cel} on it."
 			return false
@@ -118,14 +120,20 @@ class Board
 		valid_move = [false, false]
 		move = Array.new
 		loop do
-		move = gets.split()
-		# if [false, false], tell player the system cannot parse text, restart
-		# TODO Maybe add error handling regarding the players' input 
-			unless self.understands?(move[0], move[1])
-				puts "Could you write that again? I could not understand it.\n\n"
+			move = gets.split()
+			# if [false, false], tell player the system cannot parse text, restart
+			begin
+				understands = self.understands?(move[0], move[1])
+			rescue NoMethodError
+				puts "I didn't understand the input, could you write it again?"
 				next
 			else
-				valid_move[0] = true
+				unless understands
+					puts "Could you write that again? I could not understand it.\n"
+					next
+				else
+					valid_move[0] = true
+				end
 			end
 		# if [true, false], tell the player it's an invalid move, restart loop
 			unless self.valid_move?(move[0], move[1])

@@ -20,7 +20,8 @@ class Game
 	# Method that plays a round of the game
 	def play_round(char)
 		char = char
-		# TODO Call char_to_player to write a properly formatted line
+		# Call char_to_player to write a properly formatted line
+		puts "It's #{self.char_to_player(char)}'s turn!"
 		# Ask the player for a move
 		puts self.to_s()
 		puts "Please write your move, the options are:\n"\
@@ -86,6 +87,14 @@ class Game
 
 	end
 
+	def char_to_player(char)
+		if char == "X"
+			return "Player 1"
+		elsif char == "O"
+			return "Player 2"
+		end
+	end
+
 	private
 	attr_writer :player_turn, :p1_rounds, :p2_rounds, :board
 
@@ -97,13 +106,6 @@ class Game
 		end
 	end
 
-	def char_to_player(char)
-		if char == "X"
-			return "Player 1"
-		elsif char == "O"
-			return "Player 2"
-		end
-	end
 
 end
 
