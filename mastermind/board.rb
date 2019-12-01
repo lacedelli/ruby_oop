@@ -25,3 +25,4 @@ class Board
 	end
 	
 end
+
