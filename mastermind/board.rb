@@ -1,6 +1,12 @@
 class Board
+	NC = "\033[0m"
+	RED = "\033[0;31m"
+	GREEN = "\033[0;32m"
+	BLUE = "\033[0;34m"
+	YELLOW = "\033[1;33m"
+	attr_reader :secret_code
+
 	def initialize() 
-		attr_reader :secret_code
 		# Set a variable that holds four values
 		@secret_code = Array.new()
 	end
@@ -9,9 +15,9 @@ class Board
 		# Grab the values contained in the array passed to the board
 		# and assign them in order to the values in @secret_code 
 		values = array
-
-		values.each_index do |v, i|
-			case i.downcase
+		puts "#{values}"
+		values.each_index do |i|
+			case values[i].downcase
 			when "red"
 				self.secret_code[i] = "R"
 			when "blue"
@@ -22,6 +28,7 @@ class Board
 				self.secret_code[i] = "G"
 			end
 		end
+		nil
 	end
 
 	def asses_guess(guess)
@@ -30,9 +37,9 @@ class Board
 		# Make an array that we can pop values from
 		local_code = self.secret_code
 		# Compare the guess array with each of the values in @secret_code
-		local_code.each_index do |v, i|
+		local_code.each_index do |i|
 		# Send a green signal if the guess is right
-			if guess[i] == v
+			if guess[i] == local_code[i]
 				correct_guesses.push("G")
 				local_code[i] = nil
 		# Send a blue signal if the the guess is right, but in the wrong place
@@ -42,20 +49,37 @@ class Board
 			else
 				correct_guesses.push("R")
 				local_code[i] = nil
+			end
 		end
-		correct_guesses	
+		correct_guesses.map do |g|
+			self.colorize(g)
+		end
 	end
 
 	def to_s()
-		# TODO Set a procedure that takes the letters of each of the values
-		# TODO within @secret_code and changes the colors of each letter
-		# TODO depending on the value
+		status_string = String.new()
+		self.secret_code.each do |i|
+			status_string += "#{self.colorize(i)}, "
+		end
+		status_string.strip().chop()
 	end
 
 	def colorize(string)
+		# Define color constants
+		
+		# Return a colorized version if a color is not included
+		case string
+		when "R"
+			return "#{RED}R#{NC}"
+		when "G"
+			return "#{GREEN}G#{NC}"
+		when "B"
+			return "#{BLUE}B#{NC}"
+		when "Y"
+			return "#{YELLOW}Y#{NC}"
+		end
 	end
 	
 	private
 	attr_writer :secret_code
 end
-
