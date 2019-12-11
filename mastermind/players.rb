@@ -17,6 +17,7 @@ class Player
 				code.push(color)
 			else
 				puts "The input was not valid, please check for typos"
+				guesses -= 1
 				next
 			end
 			if guesses == code.length()
@@ -43,11 +44,23 @@ class Player
 	end
 
 	def make_guess(spaces)
-		# TODO set up a loop
-			# TODO ensure that the input is valid
-			# TODO if valid, append to array
-			# TODO else, tell the player so and repeat loop
-		# TODO End loop if guesses == spaces on board
+		board_spaces = spaces
+		guesses = Array.new()
+		loop do
+			puts "Make your guess! you have #{board_spaces - guesses.length()} left!"
+			puts "Your options are red, green, blue and yellow."
+			guess = gets().chomp()
+			if self.valid_guess?(guess)
+				guesses.push(guess)
+			else
+				puts "I could not understand the text, please check for typos"
+				next
+			end
+			if guesses.length() == board_spaces
+				break
+			end
+		end
+		guesses
 	end
 
 end
