@@ -1,8 +1,11 @@
+require_relative "board.rb"
 class Game
 	def initialize()
 		# TODO set up players
-		# TODO set up board
-		# TODO create variable for guesses
+		# Set up board
+		@board = Board.new()
+		# create variable for guesses
+		@guesses = Array.new()
 	end
 
 	def play_round()

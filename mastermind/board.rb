@@ -17,6 +17,8 @@ class Board
 		values = array
 		puts "#{values}"
 		values.each_index do |i|
+			# TODO add cases for the option of only writing the first letter of the 
+			# TODO color
 			case values[i].downcase
 			when "red"
 				self.secret_code[i] = "R"
@@ -65,8 +67,6 @@ class Board
 	end
 
 	def colorize(string)
-		# Define color constants
-		
 		# Return a colorized version if a color is not included
 		case string
 		when "R"

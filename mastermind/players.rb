@@ -4,17 +4,42 @@ class Player
 	end
 
 	def get_code(spaces)
-		# TODO Make a loop 
-			# TODO ensure that the input is valid for the game
-			# TODO If valid, append to the array
-			# TODO if not tell the player so and repeat loop
-		# TODO End loop if guesses == spaces on board
+		guesses = spaces.length()
+		code = Array.new
+		# Make a loop
+		loop do
+			# ensure that the input is valid for the game
+			puts "Make your guess! You've got #{guesses} left"
+			puts "The options are: Green, Red, Blue, Yellow"
+			color = gets().chomp()
+			# If valid, append to the array
+			if self.valid_input?(color)
+				code.push(color)
+			else
+				puts "The input was not valid, please check for typos"
+				next
+			end
+			if guesses == code.length()
+				break
+			end
+		end
+		code
 	end
 
 	def valid_input?(input)
-		# TODO Start a switch case for input
-		# TODO Make a case for each of the valid inputs, return true
-		# TODO Make a case for the rest of the invalid inputs, return false
+		color = input
+		case color.downcase
+		when "red"
+			return true
+		when "blue"
+			return true
+		when "yellow"
+			return true
+		when "green"
+			return true
+		else
+			return false
+		end
 	end
 
 	def make_guess(spaces)
@@ -31,6 +56,7 @@ class ComputerPlayer > Player
 
 	def initialize()
 		# TODO initialize array for correct guesses
+		@correct_guesses = Array.new()
 	end
 
 	def get_code(spaces)
