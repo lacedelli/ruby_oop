@@ -73,10 +73,8 @@ class ComputerPlayer > Player
 	end
 
 	def get_code(spaces)
-		# TODO start loop
 		select = Array.new()
 		loop do 
-			# TODO generate a random number
 			select_int = Random.new()
 			select_int.rand(3)
 			case select_int.abs()
@@ -93,11 +91,19 @@ class ComputerPlayer > Player
 				break
 			end
 		end
-		# TODO return values
+		select
 	end
 
 	def make_guess(spaces)
-		# TODO 
+		# TODO get guesses that are correct
+		# TODO generate new guesses based off of random numbers
+		# TODO return guesses
 	end	
+
+	def asses_guess()
+		# TODO get values from board and parse them with regexp
+		# TODO Check if any of the values equals to green and add them
+		# TODO to the respective slot on the instance variable for next guesses
+	end
 
 end
