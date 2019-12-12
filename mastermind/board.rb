@@ -17,16 +17,14 @@ class Board
 		values = array
 		puts "#{values}"
 		values.each_index do |i|
-			# TODO add cases for the option of only writing the first letter of the 
-			# TODO color
 			case values[i].downcase
-			when "red"
+			when "red", "r"
 				self.secret_code[i] = "R"
-			when "blue"
+			when "blue", "b"
 				self.secret_code[i] = "B"
-			when "yellow"
+			when "yellow", "y"
 				self.secret_code[i] = "Y"
-			when "green"
+			when "green", "y"
 				self.secret_code[i] = "G"
 			end
 		end
@@ -56,6 +54,11 @@ class Board
 		correct_guesses.map do |g|
 			self.colorize(g)
 		end
+	end
+
+	def all_guesses_correct?(guess)
+		# TODO check if the guess has any value that doesn't evaluate to 
+		# TODO green, return false if it is the case	
 	end
 
 	def to_s()
