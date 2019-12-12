@@ -68,15 +68,31 @@ end
 class ComputerPlayer > Player
 
 	def initialize()
-		# TODO initialize array for correct guesses
+		# Initialize array for correct guesses
 		@correct_guesses = Array.new()
 	end
 
 	def get_code(spaces)
 		# TODO start loop
+		select = Array.new()
+		loop do 
 			# TODO generate a random number
-			# TODO Assign a color value to the number and append to array
-		# TODO stop generating values when values.length == spaces
+			select_int = Random.new()
+			select_int.rand(3)
+			case select_int.abs()
+			when 0
+				select.push("red")
+			when 1
+				select.push("green")
+			when 2
+				select.push("blue")
+			when 3
+				select.push("yellow")
+			end
+			if select.length() == spaces
+				break
+			end
+		end
 		# TODO return values
 	end
 
