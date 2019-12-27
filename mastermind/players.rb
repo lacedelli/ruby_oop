@@ -27,6 +27,10 @@ class Player
 		code
 	end
 
+	def make_guess(spaces)
+		self.get_code(spaces)
+	end
+
 	private
 
 	def valid_input?(input)
@@ -48,11 +52,12 @@ class Player
 end
 
 class ComputerPlayer < Player
-	attr_reader :correct_guesses
+	attr_reader :correct_guesses, :current_guesses
 
 	def initialize()
 		# Initialize array for correct guesses
 		@correct_guesses = Array.new()
+		@current_guesses = Array.new()
 	end
 
 	def get_code(spaces)
@@ -73,19 +78,24 @@ class ComputerPlayer < Player
 		# generate new guesses based off of random numbers
 		spaces.times do |i|
 			if current_guesses[i] == nil
-				current_guesses[i] == self.create_color()
+				current_guesses[i] == create_color()
 			end
 		end
+		self.current_guesses = current_guesses
 		current_guesses
 	end	
 
 	def asses_guess(results)
-		# TODO Check if any of the values equals to green and add them
-		# TODO to the respective slot on the instance variable for next guesses
+		# Check if any of the values equals to green and add them
+		# to the respective slot on the instance variable for next guesses
+		results.each_index do |i|
+			if results[i] == "G"
+				self.correct_guesses[i] = self.current_guesses[i]
+		end
 	end
 
 	private
-	attr_writer :correct_guesses
+	attr_writer :correct_guesses, :current_guesses
 
 	def create_color()
 		select = String.new()
