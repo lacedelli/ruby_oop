@@ -57,19 +57,7 @@ class ComputerPlayer < Player
 	def get_code(spaces)
 		select = Array.new()
 		loop do 
-			select_int = Random.new()
-			select_int.rand(3)
-			case select_int.abs()
-			when 0
-				select.push("red")
-			when 1
-				select.push("green")
-			when 2
-				select.push("blue")
-			when 3
-				select.push("yellow")
-			end
-			if select.length() == spaces
+					if select.length() == spaces
 				break
 			end
 		end
@@ -77,7 +65,9 @@ class ComputerPlayer < Player
 	end
 
 	def make_guess(spaces)
-		# TODO get guesses that are correct
+		# get guesses that are correct
+		current_guesses = Array.new
+		current_guesses = self.correct_guesses unless self.correct_guesses.all?(nil)
 		# TODO generate new guesses based off of random numbers
 		# TODO return guesses
 	end	
@@ -86,5 +76,22 @@ class ComputerPlayer < Player
 		# TODO Check if any of the values equals to green and add them
 		# TODO to the respective slot on the instance variable for next guesses
 	end
+	private
 
+	def create_color()
+		select = String.new()
+		select_int = Random.new()
+		select_int.rand(3)
+			case select_int.abs()
+			when 0
+				select = "red"
+			when 1
+				select = "green"
+			when 2
+				select = "blue"
+			when 3
+				select = "yellow"
+			end
+		select
+	end
 end
