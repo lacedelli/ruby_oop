@@ -13,7 +13,7 @@ class Player
 			puts "The options are: Green, Red, Blue, Yellow"
 			color = gets().chomp()
 			# If valid, append to the array
-			if self.valid_input?(color)
+			if valid_input?(color)
 				code.push(color)
 				guesses -= 1
 			else
@@ -48,6 +48,7 @@ class Player
 end
 
 class ComputerPlayer < Player
+	attr_reader :correct_guesses
 
 	def initialize()
 		# Initialize array for correct guesses
@@ -57,7 +58,8 @@ class ComputerPlayer < Player
 	def get_code(spaces)
 		select = Array.new()
 		loop do 
-					if select.length() == spaces
+			select.push(create_color())
+			if select.length() == spaces
 				break
 			end
 		end
@@ -68,21 +70,28 @@ class ComputerPlayer < Player
 		# get guesses that are correct
 		current_guesses = Array.new
 		current_guesses = self.correct_guesses unless self.correct_guesses.all?(nil)
-		# TODO generate new guesses based off of random numbers
-		# TODO return guesses
+		# generate new guesses based off of random numbers
+		spaces.times do |i|
+			if current_guesses[i] == nil
+				current_guesses[i] == self.create_color()
+			end
+		end
+		current_guesses
 	end	
 
 	def asses_guess(results)
 		# TODO Check if any of the values equals to green and add them
 		# TODO to the respective slot on the instance variable for next guesses
 	end
+
 	private
+	attr_writer :correct_guesses
 
 	def create_color()
 		select = String.new()
-		select_int = Random.new()
-		select_int.rand(3)
-			case select_int.abs()
+		rand = Random.new()
+		select_int = rand.rand(3)
+		case select_int
 			when 0
 				select = "red"
 			when 1
@@ -92,6 +101,7 @@ class ComputerPlayer < Player
 			when 3
 				select = "yellow"
 			end
+		puts select
 		select
 	end
 end
