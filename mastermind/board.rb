@@ -31,7 +31,7 @@ class Board
 		nil
 	end
 
-	def asses_guess(guess, colorize = false)
+	def assess_guess(guess, colorize = false)
 		# Make an array to push the status of the guesses
 		correct_guesses = Array.new
 		# Make an array that we can pop values from
@@ -54,7 +54,7 @@ class Board
 		# If colorize is false, return an unadulterated string
 		if colorize
 			correct_guesses.map do |g|
-				self.colorize(g)
+				colorize(g)
 			end
 		end
 		correct_guesses
@@ -62,7 +62,7 @@ class Board
 
 	def all_guesses_correct?(guess)
 		state = false
-		results = self.asses_guess(guess)
+		results = self.assess_guess(guess)
 		if results.all?("g")
 			state = true
 		end
@@ -72,7 +72,7 @@ class Board
 	def to_s()
 		status_string = String.new()
 		self.secret_code.each do |i|
-			status_string += "#{self.colorize(i)}, "
+			status_string += "#{colorize(i)}, "
 		end
 		status_string.strip().chop()
 	end
