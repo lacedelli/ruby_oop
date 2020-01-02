@@ -62,7 +62,8 @@ class Board
 
 	def all_guesses_correct?(guess)
 		state = false
-		if guess.all?("g")
+		results = self.asses_guess(guess)
+		if results.all?("g")
 			state = true
 		end
 		state

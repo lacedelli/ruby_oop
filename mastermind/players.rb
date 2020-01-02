@@ -85,12 +85,13 @@ class ComputerPlayer < Player
 		current_guesses
 	end	
 
-	def asses_guess(results)
+	def assess_guess(results)
 		# Check if any of the values equals to green and add them
 		# to the respective slot on the instance variable for next guesses
 		results.each_index do |i|
 			if results[i] == "G"
 				self.correct_guesses[i] = self.current_guesses[i]
+			end
 		end
 	end
 
