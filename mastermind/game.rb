@@ -42,18 +42,14 @@ class Game
 		puts "Please set the number of spaces in the code"	
 		spaces = 0 
 		while spaces <= 0 || nil
-			begin
-				spaces = gets.chomp().to_i()
-			rescue NoMethodError
-				puts "That value cannot be converted to an integer value."
-			end
-		end
+			spaces = gets.chomp().to_i()
 			if self.player_switch % 2 == 0
 				self.board.create_board(self.npc.get_code(spaces))
 			else
 				puts "It's your turn to make a code!"
 				self.board.create_board(self.pc.get_code(spaces))
 			end
+		end
 		# set up a loop
 		loop do
 			# TODO play a round

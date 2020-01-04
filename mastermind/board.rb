@@ -15,7 +15,6 @@ class Board
 		# Grab the values contained in the array passed to the board
 		# and assign them in order to the values in @secret_code 
 		values = array
-		puts "#{values}"
 		values.each_index do |i|
 			case values[i].downcase
 			when "red", "r"
@@ -35,7 +34,9 @@ class Board
 		# Make an array to push the status of the guesses
 		correct_guesses = Array.new
 		# Make an array that we can pop values from
-		local_code = self.secret_code
+		local_code = Array.new(self.secret_code)
+		puts "secret code is: #{self.secret_code}"
+		puts "player guess is: #{guess}"
 		# Compare the guess array with each of the values in @secret_code
 		local_code.each_index do |i|
 		# Send a green signal if the guess is right
@@ -53,7 +54,7 @@ class Board
 		end
 		# If colorize is false, return an unadulterated string
 		if colorize
-			correct_guesses.map do |g|
+			correct_guesses.map! do |g|
 				colorize(g)
 			end
 		end

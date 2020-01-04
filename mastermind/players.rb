@@ -28,7 +28,20 @@ class Player
 	end
 
 	def make_guess(spaces)
-		self.get_code(spaces)
+		guesses = self.get_code(spaces)
+		guesses.map! do |guess|
+			case guess.downcase()
+			when "red"
+				guess = "R"
+			when "green"
+				guess = "G"
+			when "blue"
+				guess = "B"
+			when "yellow"
+				guess = "Y"
+			end
+		end
+		guesses
 	end
 
 	private
@@ -112,7 +125,6 @@ class ComputerPlayer < Player
 			when 3
 				select = "yellow"
 			end
-		puts select
 		select
 	end
 end
