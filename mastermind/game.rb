@@ -37,7 +37,7 @@ class Game
 		# If loop ends, end game and assign points
 		guesses = self.board.assess_guess(guesses)
 		guesses.map do |guess|
-			if guess == "g"
+			if guess == "G"
 				score += 1
 			end
 		end
