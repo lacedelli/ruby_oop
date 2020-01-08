@@ -121,7 +121,7 @@ class ComputerPlayer < Player
 	def create_color()
 		select = String.new()
 		rand = Random.new()
-		select_int = rand.rand(3)
+		select_int = rand.rand(4)
 		case select_int
 			when 0
 				select = "red"
