@@ -35,8 +35,6 @@ class Board
 		correct_guesses = Array.new
 		# Make an array that we can pop values from
 		local_code = Array.new(self.secret_code)
-		puts "secret code is: #{self.secret_code}"
-		puts "player guess is: #{guess}"
 		# Compare the guess array with each of the values in @secret_code
 		local_code.each_index do |i|
 		# Send a green signal if the guess is right
@@ -46,10 +44,8 @@ class Board
 		# Send a blue signal if the the guess is right, but in the wrong place
 			elsif local_code.include?(guess[i])
 				correct_guesses.push("B")
-				local_code[i] = nil
 			else
 				correct_guesses.push("R")
-				local_code[i] = nil
 			end
 		end
 		# If colorize is false, return an unadulterated string
@@ -95,5 +91,4 @@ class Board
 			return "#{YELLOW}Y#{NC}"
 		end
 	end
-
 end

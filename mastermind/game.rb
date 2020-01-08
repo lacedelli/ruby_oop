@@ -25,11 +25,10 @@ class Game
 				guesses = self.pc.make_guess(guesses_num)
 			else
 				guesses = self.npc.make_guess(guesses_num)
-				self.npc.assess_guess(guesses)
+				self.npc.assess_guess(self.board.assess_guess(guesses))
 			end
 			puts self.board.assess_guess(guesses, true)
 			if self.board.all_guesses_correct?(guesses)
-				puts "all guesses correct true"
 				break
 			end
 		end
@@ -67,6 +66,7 @@ class Game
 		loop do
 			# TODO play a round
 			self.play_round(spaces)	
+			puts "the round ended!, the secret code was: #{self.board.to_s()}"
 			# TODO print scores, ask if player wants to play another round
 			puts "The current scores are #{self.player_scores[:pc]} points for you, and #{self.player_scores[:npc]} for the \"computer.\""
 			# TODO if player says yes, continue loop

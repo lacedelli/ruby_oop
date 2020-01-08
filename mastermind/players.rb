@@ -86,21 +86,28 @@ class ComputerPlayer < Player
 
 	def make_guess(spaces)
 		# get guesses that are correct
-		current_guesses = Array.new
+		puts "make_guess called"
+		current_guesses = Array.new(spaces)
 		current_guesses = self.correct_guesses unless self.correct_guesses.all?(nil)
+		puts "Current_guesses is: #{current_guesses}"
 		# generate new guesses based off of random numbers
 		spaces.times do |i|
 			if current_guesses[i] == nil
-				current_guesses[i] == create_color()
+				puts "current_guesses[i] == nil true"
+				current_guesses[i] = create_color()
+				puts "current_guesses[i] = #{current_guesses[i]}"
 			end
 		end
 		self.current_guesses = current_guesses
+		puts "@current_guesses is #{self.current_guesses}"
+		puts "current_guesses is #{current_guesses}"
 		current_guesses
 	end	
 
 	def assess_guess(results)
 		# Check if any of the values equals to green and add them
 		# to the respective slot on the instance variable for next guesses
+		puts "asses guess called"
 		results.each_index do |i|
 			if results[i] == "G"
 				self.correct_guesses[i] = self.current_guesses[i]
