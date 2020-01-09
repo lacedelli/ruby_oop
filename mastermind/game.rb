@@ -15,12 +15,12 @@ class Game
 	end
 
 	def play_round(guesses_num)
-		# TODO restart variable for guesses
+		# restart variable for guesses
 		guesses = []
 		score = 0
-		# TODO Set up a loop with guesses as a limit
+		# Set up a loop with guesses as a limit
 		guesses_num.times do |i|
-			# TODO Get a guess from active player
+			# Get a guess from active player
 			if self.player_switch % 2 == 0
 				guesses = self.pc.make_guess(guesses_num)
 			else
@@ -31,6 +31,7 @@ class Game
 			if self.board.all_guesses_correct?(guesses)
 				break
 			end
+			puts "Make a new guess!"
 		end
 		puts "Round ended!"
 		# If loop ends, end game and assign points
@@ -58,7 +59,7 @@ class Game
 		if self.player_switch % 2 == 0
 			self.board.create_board(self.npc.get_code(spaces))
 		else
-			puts "It's your turn to make a code!"
+			puts "/nIt's your turn to make a code!/n"
 			self.board.create_board(self.pc.get_code(spaces))
 		end
 

@@ -1,6 +1,7 @@
 class Player
 	def initialize()
-		# TODO there's gotta be stuff to initialize, but I can't think of it rn
+		# Apparently there's no need to initialize anything here, turns out people
+		# Can just use their brains to hold variables.
 	end
 
 	def get_code(spaces)
@@ -86,33 +87,28 @@ class ComputerPlayer < Player
 
 	def make_guess(spaces)
 		# get guesses that are correct
-		puts "make_guess called"
 		current_guesses = Array.new(spaces)
 		current_guesses = self.correct_guesses unless self.correct_guesses.all?(nil)
-		puts "Current_guesses is: #{current_guesses}"
 		# generate new guesses based off of random numbers
 		spaces.times do |i|
 			if current_guesses[i] == nil
-				puts "current_guesses[i] == nil true"
 				current_guesses[i] = color_to_letter(create_color())
-				puts "current_guesses[i] = #{current_guesses[i]}"
 			end
 		end
 		self.current_guesses = current_guesses
-		puts "@current_guesses is #{self.current_guesses}"
-		puts "current_guesses is #{current_guesses}"
 		current_guesses
 	end	
 
 	def assess_guess(results)
 		# Check if any of the values equals to green and add them
 		# to the respective slot on the instance variable for next guesses
-		puts "asses guess called"
-		puts "results = #{results}"
 		results.each_index do |i|
 			if results[i] == "G"
-				puts "results[i] == G true"
 				self.correct_guesses[i] = self.current_guesses[i]
+			elsif results[i] == "B"
+				# TODO Scan for first R in guesses and assign blue to that slot.
+				# TODO If there's no R, find blue that is NOT current iteration
+				# TODO And assign it to that index.
 			end
 		end
 	end
