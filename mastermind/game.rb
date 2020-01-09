@@ -64,12 +64,12 @@ class Game
 
 		# set up a loop
 		loop do
-			# TODO play a round
+			# Play a round
 			self.play_round(spaces)	
 			puts "the round ended!, the secret code was: #{self.board.to_s()}"
-			# TODO print scores, ask if player wants to play another round
+			# Print scores, ask if player wants to play another round
 			puts "The current scores are #{self.player_scores[:pc]} points for you, and #{self.player_scores[:npc]} for the \"computer.\""
-			# TODO if player says yes, continue loop
+			# If player says yes, continue loop
 			puts "Do you want to play another round? Y/N"
 			answer = gets().chomp()
 			unless /[yY]/.match?(answer)

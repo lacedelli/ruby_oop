@@ -94,7 +94,7 @@ class ComputerPlayer < Player
 		spaces.times do |i|
 			if current_guesses[i] == nil
 				puts "current_guesses[i] == nil true"
-				current_guesses[i] = create_color()
+				current_guesses[i] = color_to_letter(create_color())
 				puts "current_guesses[i] = #{current_guesses[i]}"
 			end
 		end
@@ -108,8 +108,10 @@ class ComputerPlayer < Player
 		# Check if any of the values equals to green and add them
 		# to the respective slot on the instance variable for next guesses
 		puts "asses guess called"
+		puts "results = #{results}"
 		results.each_index do |i|
 			if results[i] == "G"
+				puts "results[i] == G true"
 				self.correct_guesses[i] = self.current_guesses[i]
 			end
 		end
@@ -133,5 +135,20 @@ class ComputerPlayer < Player
 				select = "yellow"
 			end
 		select
+	end
+
+	def color_to_letter(color)
+		guess = String.new()
+		case color
+		when "red"
+			guess = "R"
+		when "green"
+			guess = "G"
+		when "blue"
+			guess = "B"
+		when "yellow"
+			guess = "Y"
+		end
+		guess
 	end
 end
