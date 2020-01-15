@@ -57,6 +57,12 @@ class Board
 		correct_guesses
 	end
 
+	def colorize_guess(guess)
+		guess.map! do |g|
+			colorize(g)
+		end	
+	end
+
 	def all_guesses_correct?(guess)
 		state = false
 		results = self.assess_guess(guess)

@@ -66,12 +66,13 @@ class Player
 end
 
 class ComputerPlayer < Player
-	attr_reader :correct_guesses, :current_guesses
+	attr_reader :correct_guesses, :current_guesses, :blue_guesses
 
 	def initialize()
 		# Initialize array for correct guesses
 		@correct_guesses = Array.new()
 		@current_guesses = Array.new()
+		@blue_guesses = Array.new()
 	end
 
 	def get_code(spaces)
@@ -82,10 +83,12 @@ class ComputerPlayer < Player
 				break
 			end
 		end
+		create_blue_guesses(spaces)
 		select
 	end
 
 	def make_guess(spaces)
+		puts "inside make_guess"
 		# get guesses that are correct
 		current_guesses = Array.new(spaces)
 		current_guesses = self.correct_guesses unless self.correct_guesses.all?(nil)
@@ -96,25 +99,53 @@ class ComputerPlayer < Player
 			end
 		end
 		self.current_guesses = current_guesses
+		puts "self.current_guesses"
+		p self.current_guesses
 		current_guesses
 	end	
 
 	def assess_guess(results)
+		puts "inside_assess guess"
 		# Check if any of the values equals to green and add them
 		# to the respective slot on the instance variable for next guesses
 		results.each_index do |i|
 			if results[i] == "G"
 				self.correct_guesses[i] = self.current_guesses[i]
 			elsif results[i] == "B"
-				# TODO Scan for first R in guesses and assign blue to that slot.
-				# TODO If there's no R, find blue that is NOT current iteration
-				# TODO And assign it to that index.
+				puts "Deleted value at correct_guesses[#{i}]"
+				self.blue_guesses[i].push(self.current_guesses[i])
+				results.each_index do |i|
+					unless results[i] == "G"
+						unless self.blue_guesses[i].any?(self.current_guesses[i])
+							self.correct_guesses[i] = self.current_guesses[i]
+							puts "added value \"#{current_guesses[i]}\" at correct_guesses[#{i}]"
+							break
+						end
+					end
+				end
+				self.correct_guesses[i] = nil
+			elsif results[i] == "R"
+				self.correct_guesses[i] = nil
+				puts "Deleted value at correct_guesses[#{i}]"
 			end
 		end
+		puts "current_guesses"
+		p self.current_guesses
+		puts "correct_guesses"
+		p self.correct_guesses
+		puts "blue_guesses"
+		p self.blue_guesses
 	end
 
+
 	private
-	attr_writer :correct_guesses, :current_guesses
+	attr_writer :correct_guesses, :current_guesses, :blue_guesses
+	
+	def create_blue_guesses(spaces)
+		spaces.times do |i|
+			self.blue_guesses[i] = Array.new()
+		end
+	end
 
 	def create_color()
 		select = String.new()

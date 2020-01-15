@@ -27,7 +27,10 @@ class Game
 				guesses = self.npc.make_guess(guesses_num)
 				self.npc.assess_guess(self.board.assess_guess(guesses))
 			end
-			puts self.board.assess_guess(guesses, true)
+			puts "The results of your guess are:"
+			puts self.board.assess_guess(guesses, true).join(" ")
+			puts "Your guess was:"
+			puts self.board.colorize_guess(guesses).join(" ")	
 			if self.board.all_guesses_correct?(guesses)
 				break
 			end
