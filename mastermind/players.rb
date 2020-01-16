@@ -96,6 +96,9 @@ class ComputerPlayer < Player
 		spaces.times do |i|
 			if current_guesses[i] == nil
 				current_guesses[i] = color_to_letter(create_color())
+				while self.blue_guesses[i].any?(current_guesses[i])
+					current_guesses[i] = color_to_letter(create_color())
+				end
 			end
 		end
 		self.current_guesses = current_guesses
@@ -112,21 +115,7 @@ class ComputerPlayer < Player
 			if results[i] == "G"
 				self.correct_guesses[i] = self.current_guesses[i]
 			elsif results[i] == "B"
-				puts "Deleted value at correct_guesses[#{i}]"
-				self.blue_guesses[i].push(self.current_guesses[i])
-				results.each_index do |i|
-					unless results[i] == "G"
-						unless self.blue_guesses[i].any?(self.current_guesses[i])
-							self.correct_guesses[i] = self.current_guesses[i]
-							puts "added value \"#{current_guesses[i]}\" at correct_guesses[#{i}]"
-							break
-						end
-					end
-				end
-				self.correct_guesses[i] = nil
 			elsif results[i] == "R"
-				self.correct_guesses[i] = nil
-				puts "Deleted value at correct_guesses[#{i}]"
 			end
 		end
 		puts "current_guesses"

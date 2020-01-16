@@ -27,19 +27,22 @@ class Game
 				guesses = self.npc.make_guess(guesses_num)
 				self.npc.assess_guess(self.board.assess_guess(guesses))
 			end
+
 			puts "The results of your guess are:"
 			puts self.board.assess_guess(guesses, true).join(" ")
 			puts "Your guess was:"
 			puts self.board.colorize_guess(guesses).join(" ")	
+
 			if self.board.all_guesses_correct?(guesses)
 				break
+			else
+				puts "Make a new guess!"
 			end
-			puts "Make a new guess!"
 		end
 		puts "Round ended!"
 		# If loop ends, end game and assign points
-		guesses = self.board.assess_guess(guesses)
-		guesses.map do |guess|
+		results = self.board.assess_guess(guesses)
+		results.map do |guess|
 			if guess == "G"
 				score += 1
 			end
@@ -62,7 +65,7 @@ class Game
 		if self.player_switch % 2 == 0
 			self.board.create_board(self.npc.get_code(spaces))
 		else
-			puts "/nIt's your turn to make a code!/n"
+			puts "It's your turn to make a code!"
 			self.board.create_board(self.pc.get_code(spaces))
 		end
 

@@ -58,9 +58,11 @@ class Board
 	end
 
 	def colorize_guess(guess)
-		guess.map! do |g|
-			colorize(g)
+		colorized = Array.new()
+		guess.map do |g|
+			colorized.push(colorize(g))
 		end	
+		colorized
 	end
 
 	def all_guesses_correct?(guess)
