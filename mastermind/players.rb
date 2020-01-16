@@ -115,6 +115,24 @@ class ComputerPlayer < Player
 			if results[i] == "G"
 				self.correct_guesses[i] = self.current_guesses[i]
 			elsif results[i] == "B"
+				# TODO Add current guess to the class' blue guess array at current index
+				self.blue_guesses[i].push(self.current_guesses[i])
+				# TODO Search a non-green guess
+				results.each_index do |i|
+					unless results[i] == "G"
+					# TODO If guess does not have current color at @blue_guesses index
+						unless self.blue_guesses[i].any?(current_guesses[i])
+							self.blue_guesses[i].push(current_guesses[i])
+					# TODO add it to @correct_guesses
+							self.correct_guesses[i] == current_guesses[i]
+							break
+						end
+					end
+				end
+				# TODO if @correct_guesses has current guess at current index
+				if self.correct_guesses[i] == self.current_guesses[i]
+					self.correct_guesses[i] = nil
+				end
 			elsif results[i] == "R"
 			end
 		end
