@@ -23,7 +23,7 @@ class Board
 				self.secret_code[i] = "B"
 			when "yellow", "y"
 				self.secret_code[i] = "Y"
-			when "green", "y"
+			when "green", "g"
 				self.secret_code[i] = "G"
 			end
 		end
