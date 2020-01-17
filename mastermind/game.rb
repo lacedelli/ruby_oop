@@ -36,7 +36,7 @@ class Game
 			if self.board.all_guesses_correct?(guesses)
 				break
 			else
-				puts "Make a new guess!"
+				puts "\nMake a new guess!"
 			end
 		end
 		puts "Round ended!"
@@ -69,6 +69,7 @@ class Game
 			self.board.create_board(self.pc.get_code(spaces))
 		end
 
+		
 		# set up a loop
 		loop do
 			# Play a round

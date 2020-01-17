@@ -91,43 +91,50 @@ class ComputerPlayer < Player
 	def make_guess(spaces)
 		# get guesses that are correct
 		puts "making a guess:"
-		puts "correct_guesses:"
-		puts @correct_guesses.join(", ")
-		local_guesses = Array.new()
 		unless self.correct_guesses.all?(nil)
 			local_guesses = Array.new(self.correct_guesses)
+		else
+			local_guesses = Array.new()
 		end
 		# generate new guesses based off of random numbers
 		spaces.times do |i|
 			if local_guesses[i] == nil
 				local_guesses[i] = color_to_letter(create_color())
+				end
 			end
 		end
 		self.current_guesses = local_guesses
 		puts "Done guessing!"
-		puts @correct_guesses.join(", ")
 		local_guesses
 	end	
 
 	def assess_guess(results)
-		puts "inside asses guesses"
-		puts "correct_guesses:"
-		puts correct_guesses.join(", ")
+		puts "Assesing the previous guess!"
 		# Check if any of the values equals to green and add them
 		# to the respective slot on the instance variable for next guesses
 		results.each_index do |i|
 			if results[i] == "G"
 				puts "results[i] == G true"
-				puts "current_guesses[i] == #{current_guesses[i]}"
+				puts "current_guesses[i] == #{self.current_guesses[i]}"
 				self.correct_guesses[i] = self.current_guesses[i]
 			elsif results[i] == "B"
 				puts "results[i] == B true"
+				self.blue_guesses[i].push(self.current_guesses[i])
+				results.each_index do |j|
+					unless results[j] == "G"
+						unless self.blue_guesses[j].include?(self.current_guesses[i])
+							self.blue_guesses[j].push(self.current_guesses[i])
+							self.correct_guesses[j] = self.current_guesses[i]
+						end
+					end
+				end
+				self.correct_guesses[i] = nil
 			elsif results[i] == "R"
 				puts "results[i] == R true"
+				self.correct_guesses[i] = nil
 			end
 		end
-		puts "correct_guesses:"
-		puts @correct_guesses.join(", ")
+		puts "I'm done with my assessment!"
 		nil
 	end
 
